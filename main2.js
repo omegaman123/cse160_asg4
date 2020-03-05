@@ -1,44 +1,3 @@
-// var VSHADER_SOURCE =
-//     'attribute vec4 a_Position;\n' +
-//     'attribute vec4 a_Color;\n' +
-//     'attribute vec4 a_Normal;\n' +
-//     'uniform mat4 u_MvpMatrix;\n' +
-//     'uniform mat4 u_ModelMatrix;\n' +    // Model matrix
-//     'uniform mat4 u_NormalMatrix;\n' +   // Coordinate transformation matrix of the normal
-//     'uniform vec3 u_LightColor;\n' +     // Light color
-//     'uniform vec3 u_LightPosition;\n' +  // Position of the light source
-//     'uniform vec3 u_AmbientLight;\n' +   // Ambient light color
-//     'varying vec4 v_Color;\n' +
-//     'void main() {\n' +
-//     '  gl_Position = u_MvpMatrix * a_Position;\n' +
-//     // Recalculate the normal based on the model matrix and make its length 1.
-//     '  vec3 normal = normalize(vec3(u_NormalMatrix * a_Normal));\n' +
-//     // Calculate world coordinate of vertex
-//     '  vec4 vertexPosition = u_ModelMatrix * a_Position;\n' +
-//     // Calculate the light direction and make it 1.0 in length
-//     '  vec3 lightDirection = normalize(u_LightPosition - vec3(vertexPosition));\n' +
-//     // Calculate the dot product of the normal and light direction
-//     '  float nDotL = max(dot(normal, lightDirection), 0.0);\n' +
-//     // Calculate the color due to diffuse reflection
-//     '  vec3 diffuse = u_LightColor * a_Color.rgb * nDotL;\n' +
-//     // Calculate the color due to ambient reflection
-//     '  vec3 ambient = u_AmbientLight * a_Color.rgb;\n' +
-//     // Add the surface colors due to diffuse reflection and ambient reflection
-//     '  v_Color = vec4(diffuse + ambient, a_Color.a);\n' +
-//     '}\n';
-//
-// // Fragment shader program
-// var FSHADER_SOURCE =
-//     '#ifdef GL_ES\n' +
-//     'precision mediump float;\n' +
-//     '#endif\n' +
-//     'varying vec4 v_Color;\n' +
-//     'void main() {\n' +
-//     '  gl_FragColor = v_Color;\n' +
-//     '}\n';
-
-
-
 var VSHADER_SOURCE =
     'attribute vec4 a_Position;\n' +
     //  'attribute vec4 a_Color;\n' + // Defined constant in main()
@@ -49,7 +8,7 @@ var VSHADER_SOURCE =
     'uniform mat4 u_NormalMatrix;\n' +   // Transformation matrix of the normal
     'varying vec3 v_Normal;\n' +
     'varying vec3 v_Position;\n' +
-    'varying vec3 v_EyeVec;\n'+
+    'varying vec3 v_EyeVec;\n' +
     'void main() {\n' +
     '  gl_Position = u_MvpMatrix * a_Position;\n' +
     '  vec4 vertex = u_MvMatrix * a_Position;\n' +
@@ -67,11 +26,11 @@ var FSHADER_SOURCE =
     'uniform vec3 u_LightColor;\n' +     // Light color
     'uniform vec3 u_LightPosition;\n' +  // Position of the light source
     'uniform vec3 u_AmbientLight;\n' +
-    'uniform vec4 u_Color;\n'+// Ambient light color
+    'uniform vec4 u_Color;\n' +// Ambient light color
     'uniform float u_Shininess;\n' +
     'varying vec3 v_Normal;\n' +
     'varying vec3 v_Position;\n' +
-    'varying vec3 v_EyeVec;\n'+
+    'varying vec3 v_EyeVec;\n' +
     'void main() {\n' +
     // Normalize the normal because it is interpolated and not 1.0 in length any more
     '  vec3 normal = normalize(v_Normal);\n' +
@@ -88,6 +47,22 @@ var FSHADER_SOURCE =
     '  float specular = pow( max(dot(R, E), 0.0), u_Shininess);\n' +
     '  gl_FragColor = vec4(diffuse + ambient + specular, u_Color);\n' +
     '}\n';
+
+
+var modelMatrix ;
+var mvpMatrix ;
+var normalMatrix ;
+var mvMatrix ;
+var u_ModelMatrix;
+var u_MvpMatrix;
+var u_NormalMatrix;
+var u_LightColor;
+var u_LightPosition;
+var u_AmbientLight;
+var u_Color;
+var u_Shininess;
+var u_MvMatrix;
+var vpMatrix;
 
 function main2() {
     // Retrieve <canvas> element
@@ -107,29 +82,28 @@ function main2() {
     }
 
 
-
     // Set the clear color and enable the depth test
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
     // Get the storage locations of uniform variables and so on
-    var u_ModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix');
-    var u_MvpMatrix = gl.getUniformLocation(gl.program, 'u_MvpMatrix');
-    var u_NormalMatrix = gl.getUniformLocation(gl.program, 'u_NormalMatrix');
-    var u_LightColor = gl.getUniformLocation(gl.program, 'u_LightColor');
-    var u_LightPosition = gl.getUniformLocation(gl.program, 'u_LightPosition');
-    var u_AmbientLight = gl.getUniformLocation(gl.program, 'u_AmbientLight');
-    var u_Color = gl.getUniformLocation(gl.program, 'u_Color');
-    var u_Shininess = gl.getUniformLocation(gl.program,'u_Shininess');
-    var u_MvMatrix = gl.getUniformLocation(gl.program,'u_MvMatrix');
-    if (!u_ModelMatrix || !u_MvpMatrix || !u_NormalMatrix || !u_LightColor || !u_LightPosition　|| !u_AmbientLight
+    u_ModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix');
+    u_MvpMatrix = gl.getUniformLocation(gl.program, 'u_MvpMatrix');
+    u_NormalMatrix = gl.getUniformLocation(gl.program, 'u_NormalMatrix');
+    u_LightColor = gl.getUniformLocation(gl.program, 'u_LightColor');
+    u_LightPosition = gl.getUniformLocation(gl.program, 'u_LightPosition');
+    u_AmbientLight = gl.getUniformLocation(gl.program, 'u_AmbientLight');
+    u_Color = gl.getUniformLocation(gl.program, 'u_Color');
+    u_Shininess = gl.getUniformLocation(gl.program, 'u_Shininess');
+    u_MvMatrix = gl.getUniformLocation(gl.program, 'u_MvMatrix');
+    if (!u_ModelMatrix || !u_MvpMatrix || !u_NormalMatrix || !u_LightColor || !u_LightPosition || !u_AmbientLight
         || !u_Color || !u_Shininess || !u_MvMatrix) {
         console.log('Failed to get the storage location');
         return;
     }
 
-    var vpMatrix = new Matrix4();   // View projection matrix
-    vpMatrix.setPerspective(30, canvas.width/canvas.height, 1, 100);
+     vpMatrix = new Matrix4();   // View projection matrix
+    vpMatrix.setPerspective(30, canvas.width / canvas.height, 1, 100);
     vpMatrix.lookAt(3, 3, 7, 0, 0, 0, 0, 1, 0);
 
     // Set the light color (white)
@@ -139,78 +113,89 @@ function main2() {
     // Set the ambient light
     gl.uniform3f(u_AmbientLight, 0.2, 0.2, 0.2);
 
-    gl.uniform4f(u_Color,1,0,1,1);
+    gl.uniform4f(u_Color, 1, 0, 1, 1);
 
-    gl.uniform1f(u_Shininess,230);
+    gl.uniform1f(u_Shininess, 230);
 
     var currentAngle = 0.0;  // Current rotation angle
-    var modelMatrix = new Matrix4();  // Model matrix
-    var mvpMatrix = new Matrix4();    // Model view projection matrix
-    var normalMatrix = new Matrix4(); // Transformation matrix for normals
-    var mvMatrix = new Matrix4();
+
+     modelMatrix = new Matrix4();  // Model matrix
+     mvpMatrix = new Matrix4();    // Model view projection matrix
+     normalMatrix = new Matrix4(); // Transformation matrix for normals
+     mvMatrix = new Matrix4();
 
 
-    var tick = function() {
+    var tick = function () {
         // Clear color and depth buffer
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         currentAngle = animate(currentAngle);  // Update the rotation angle
 
-        // Set the vertex coordinates, the color and the normal
         var n = initVertexBuffers(gl);
         if (n < 0) {
             console.log('Failed to set the vertex information');
             return;
         }
+        drawCube(gl,currentAngle,n);
 
-        mvMatrix.setLookAt(3, 3, 7, 0, 0, 0, 0, 1, 0);
-        gl.uniformMatrix4fv(u_MvMatrix,false, mvMatrix.elements);
-        // Calculate the model matrix
-        modelMatrix.setRotate(currentAngle, 0, 1, 0); // Rotate around the y-axis
-        // Pass the model matrix to u_ModelMatrix
-        gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix.elements);
-
-        // Pass the model view projection matrix to u_MvpMatrix
-        mvpMatrix.set(vpMatrix).multiply(modelMatrix);
-        gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
-
-        // Pass the matrix to transform the normal based on the model matrix to u_NormalMatrix
-        normalMatrix.setInverseOf(modelMatrix);
-        normalMatrix.transpose();
-        gl.uniformMatrix4fv(u_NormalMatrix, false, normalMatrix.elements);
-
-        // Draw the cube
-        gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
 
         var j = initSphereVertexBuffers(gl);
         if (j < 0) {
             console.log('Failed to set the vertex information');
             return;
         }
-        mvMatrix.setLookAt(3, 3, 7, 0, 0, 0, 0, 1, 0);
-        gl.uniformMatrix4fv(u_MvMatrix,false, mvMatrix.elements);
-        // Calculate the model matrix
-        modelMatrix.setRotate(currentAngle, 0, 1, 0); // Rotate around the y-axis
-        // Pass the model matrix to u_ModelMatrix
-        gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix.elements);
-
-        // Pass the model view projection matrix to u_MvpMatrix
-        mvpMatrix.set(vpMatrix).multiply(modelMatrix);
-        gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
-
-        // Pass the matrix to transform the normal based on the model matrix to u_NormalMatrix
-        normalMatrix.setInverseOf(modelMatrix);
-        normalMatrix.transpose();
-        gl.uniformMatrix4fv(u_NormalMatrix, false, normalMatrix.elements);
-
-        // Draw the cube
-        gl.drawElements(gl.TRIANGLES, j, gl.UNSIGNED_SHORT, 0);
+        drawSphere(gl,currentAngle,j);
 
         requestAnimationFrame(tick, canvas); // Request that the browser ?calls tick
     };
     tick();
 }
 
+function drawCube(gl,currentAngle,n) {
+
+
+    mvMatrix.setLookAt(3, 3, 7, 0, 0, 0, 0, 1, 0);
+
+    gl.uniformMatrix4fv(u_MvMatrix,false, mvMatrix.elements);
+    // Calculate the model matrix
+    modelMatrix.setRotate(currentAngle, 0, 1, 0); // Rotate around the y-axis
+    // Pass the model matrix to u_ModelMatrix
+    gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix.elements);
+
+    // Pass the model view projection matrix to u_MvpMatrix
+    mvpMatrix.set(vpMatrix).multiply(modelMatrix);
+    gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
+
+    // Pass the matrix to transform the normal based on the model matrix to u_NormalMatrix
+    normalMatrix.setInverseOf(modelMatrix);
+    normalMatrix.transpose();
+    gl.uniformMatrix4fv(u_NormalMatrix, false, normalMatrix.elements);
+
+    // Draw the cube
+    gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
+}
+
+function drawSphere(gl,currentAngle,j) {
+    mvMatrix.setLookAt(3, 3, 7, 0, 0, 0, 0, 1, 0);
+    gl.uniformMatrix4fv(u_MvMatrix, false, mvMatrix.elements);
+    // Calculate the model matrix
+    modelMatrix.setRotate(currentAngle, 0, 1, 0); // Rotate around the y-axis
+    // Pass the model matrix to u_ModelMatrix
+    gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix.elements);
+
+    // Pass the model view projection matrix to u_MvpMatrix
+    mvpMatrix.set(vpMatrix).multiply(modelMatrix);
+    gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
+
+    // Pass the matrix to transform the normal based on the model matrix to u_NormalMatrix
+    normalMatrix.setInverseOf(modelMatrix);
+    normalMatrix.transpose();
+    gl.uniformMatrix4fv(u_NormalMatrix, false, normalMatrix.elements);
+
+    // Draw the cube
+    gl.drawElements(gl.TRIANGLES, j, gl.UNSIGNED_SHORT, 0);
+
+}
 function initVertexBuffers(gl) {
     // Create a cube
     //    v6----- v5
@@ -301,8 +286,8 @@ function initSphereVertexBuffers(gl) { // Create a sphere
     // Generate indices
     for (j = 0; j < SPHERE_DIV; j++) {
         for (i = 0; i < SPHERE_DIV; i++) {
-            p1 = j * (SPHERE_DIV+1) + i;
-            p2 = p1 + (SPHERE_DIV+1);
+            p1 = j * (SPHERE_DIV + 1) + i;
+            p2 = p1 + (SPHERE_DIV + 1);
 
             indices.push(p1);
             indices.push(p2);
@@ -318,7 +303,7 @@ function initSphereVertexBuffers(gl) { // Create a sphere
     // Same data can be used for vertex and normal
     // In order to make it intelligible, another buffer is prepared separately
     if (!initSphereArrayBuffer(gl, 'a_Position', new Float32Array(positions), gl.FLOAT, 3)) return -1;
-    if (!initSphereArrayBuffer(gl, 'a_Normal', new Float32Array(positions), gl.FLOAT, 3))  return -1;
+    if (!initSphereArrayBuffer(gl, 'a_Normal', new Float32Array(positions), gl.FLOAT, 3)) return -1;
 
     // Unbind the buffer object
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
@@ -385,6 +370,7 @@ function initArrayBuffer(gl, attribute, data, num, type) {
 var ANGLE_STEP = 30.0;
 // Last time that this function was called
 var g_last = Date.now();
+
 function animate(angle) {
     // Calculate the elapsed time
     var now = Date.now();
