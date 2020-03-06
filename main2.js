@@ -26,7 +26,7 @@ var FSHADER_SOURCE =
     'uniform vec3 u_LightColor;\n' +     // Light color
     'uniform vec3 u_LightPosition;\n' +  // Position of the light source
     'uniform vec3 u_AmbientLight;\n' +
-    'uniform vec4 u_Color;\n' +// Ambient light color
+    'uniform vec3 u_Color;\n' +// Ambient light color
     'uniform float u_Shininess;\n' +
     'varying vec3 v_Normal;\n' +
     'varying vec3 v_Position;\n' +
@@ -34,18 +34,19 @@ var FSHADER_SOURCE =
     'void main() {\n' +
     // Normalize the normal because it is interpolated and not 1.0 in length any more
     '  vec3 normal = normalize(v_Normal);\n' +
+    '  vec4 color = vec4(u_Color, 1.0);\n' +
     // Calculate the light direction and make it 1.0 in length
     '  vec3 lightDirection = normalize(u_LightPosition - v_Position);\n' +
     // The dot product of the light direction and the normal
     '  float nDotL = max(dot(lightDirection, normal), 0.0);\n' +
     // Calculate the final color from diffuse reflection and ambient reflection
-    '  vec3 diffuse = u_LightColor * u_Color.rgb * nDotL;\n' +
-    '  vec3 ambient = u_AmbientLight * u_Color.rgb;\n' +
+    '  vec3 diffuse = u_LightColor * color.rgb * nDotL;\n' +
+    '  vec3 ambient = u_AmbientLight * color.rgb;\n' +
     // Calculate the specular color
     '  vec3 E = normalize(v_EyeVec);\n' +
     '  vec3 R = reflect(lightDirection, normal);\n' +
     '  float specular = pow( max(dot(R, E), 0.0), u_Shininess);\n' +
-    '  gl_FragColor = vec4(diffuse + ambient + specular, u_Color);\n' +
+    '  gl_FragColor = vec4(diffuse + ambient + specular, color);\n' +
     '}\n';
 
 
@@ -113,8 +114,6 @@ function main2() {
     // Set the ambient light
     gl.uniform3f(u_AmbientLight, 0.2, 0.2, 0.2);
 
-    gl.uniform4f(u_Color, 1, 0, 1, 1);
-
     gl.uniform1f(u_Shininess, 230);
 
     var currentAngle = 0.0;  // Current rotation angle
@@ -136,7 +135,8 @@ function main2() {
             console.log('Failed to set the vertex information');
             return;
         }
-        drawCube(gl,currentAngle,n);
+        drawCube(gl,currentAngle,n,[1,0,1]);
+        // drawCube(gl,currentAngle+90,n,{"r":0,"b":0,"g":.5,"a":1});
 
 
         var j = initSphereVertexBuffers(gl);
@@ -144,17 +144,18 @@ function main2() {
             console.log('Failed to set the vertex information');
             return;
         }
-        drawSphere(gl,currentAngle,j);
+
+        drawSphere(gl,90,j,[0,0,1]);
 
         requestAnimationFrame(tick, canvas); // Request that the browser ?calls tick
     };
     tick();
 }
 
-function drawCube(gl,currentAngle,n) {
-
-
+function drawCube(gl,currentAngle,n,color) {
     mvMatrix.setLookAt(3, 3, 7, 0, 0, 0, 0, 1, 0);
+
+    gl.uniform3f(u_Color,color[0],color[1],color[2]);
 
     gl.uniformMatrix4fv(u_MvMatrix,false, mvMatrix.elements);
     // Calculate the model matrix
@@ -171,12 +172,16 @@ function drawCube(gl,currentAngle,n) {
     normalMatrix.transpose();
     gl.uniformMatrix4fv(u_NormalMatrix, false, normalMatrix.elements);
 
+
     // Draw the cube
     gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
 }
 
-function drawSphere(gl,currentAngle,j) {
+function drawSphere(gl,currentAngle,j,color) {
     mvMatrix.setLookAt(3, 3, 7, 0, 0, 0, 0, 1, 0);
+
+    gl.uniform3f(u_Color,color[0],color[1],color[2]);
+
     gl.uniformMatrix4fv(u_MvMatrix, false, mvMatrix.elements);
     // Calculate the model matrix
     modelMatrix.setRotate(currentAngle, 0, 1, 0); // Rotate around the y-axis
@@ -191,6 +196,7 @@ function drawSphere(gl,currentAngle,j) {
     normalMatrix.setInverseOf(modelMatrix);
     normalMatrix.transpose();
     gl.uniformMatrix4fv(u_NormalMatrix, false, normalMatrix.elements);
+
 
     // Draw the cube
     gl.drawElements(gl.TRIANGLES, j, gl.UNSIGNED_SHORT, 0);

@@ -18,8 +18,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="107" column="4" selection-start-line="107" selection-start-column="4" selection-end-line="110" selection-end-column="33" />
+            <state relative-caret-position="-674">
+              <caret line="30" column="25" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="25" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -27,11 +27,22 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="614">
-              <caret line="156" column="8" selection-start-line="156" selection-start-column="8" selection-end-line="156" selection-end-column="8" />
+            <state relative-caret-position="-56">
+              <caret line="147" column="34" lean-forward="true" selection-start-line="147" selection-start-column="34" selection-end-line="147" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$USER_HOME$/Downloads/PointLightedCube_animation1.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4750">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -58,6 +69,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>v_</find>
+      <find>u_Color</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -144,12 +156,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1583447047367</updated>
-      <workItem from="1583447048720" duration="4479000" />
+      <workItem from="1583447048720" duration="6427000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4479000" />
+    <option name="totallyTimeSpent" value="6427000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="50" y="23" width="1830" height="1157" extended-state="0" />
@@ -204,8 +216,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="107" column="4" selection-start-line="107" selection-start-column="4" selection-end-line="110" selection-end-column="33" />
+        <state relative-caret-position="-674">
+          <caret line="30" column="25" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="25" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -214,8 +226,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="614">
-          <caret line="156" column="8" selection-start-line="156" selection-start-column="8" selection-end-line="156" selection-end-column="8" />
+        <state relative-caret-position="-56">
+          <caret line="147" column="34" lean-forward="true" selection-start-line="147" selection-start-column="34" selection-end-line="147" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/PointLightedCube_animation1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4750">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
