@@ -71,12 +71,12 @@ function loadTexture(gl, n, texture, u_Sampler, image, texID) {
             }
             drawCube(gl, currentAngle, n, {"type":0,"shininess":230,"rgb":{"red":1,"green":0,"blue":1}}, [0, 0, 0], [1, 1, 1]);
             drawCube(gl, currentAngle + 90, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [0, 1, 0], [1, 1, 1]);
-            drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":.2,"green":.5,"blue":0}}, [-16, 0, -16], [32, 0, 32]);
-            drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":0,"blue":.5}}, [-16, 0, -16], [32, 20, 32]);
+            drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":.2,"green":.5,"blue":0}}, [-16, -1,-16 ], [32, 1, 32]);
+            drawCube(gl, 0, n, {"type":1,"texID":1,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [-16, -1, -16], [32, 10, 32]);
 
-            drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":1,"green":0,"blue":0}}, [0, 0, 0], [10, 0.05, 0.05]);
-            drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":1,"blue":0}}, [0, 0, 0], [0.05, 10, 0.05]);
-            drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [0, 0, 0], [0.05, 0.05, 10]);
+            // drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":1,"green":0,"blue":0}}, [0, 0, 0], [10, 0.05, 0.05]);
+            // drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":1,"blue":0}}, [0, 0, 0], [0.05, 10, 0.05]);
+            // drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [0, 0, 0], [0.05, 0.05, 10]);
 
             draw(n);
 

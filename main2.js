@@ -224,7 +224,7 @@ function draw(n) {
                 case 3:
                     drawCube(gl, 0, n, {
                         "type": 1,
-                        "texID": 2,
+                        "texID": 5,
                         "shininess": 230,
                         "rgb": {"red": .8, "green": .8, "blue": .8}
                     }, [i - 16, 2, j - 16], [1, 1, 1]);
