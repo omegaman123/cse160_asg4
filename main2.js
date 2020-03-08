@@ -41,12 +41,13 @@ var FSHADER_SOURCE =
     // Normalize the normal because it is interpolated and not 1.0 in length any more
     '  vec3 normal = normalize(v_Normal);\n' +
     '  vec4 color;\n' +
-    'if (u_Text == 1){ gl_FragColor = texture2D(u_Sampler,v_TexCoord);}' +
     '  if (normal_Visual == 1) {\n' +
     '    color = vec4(v_Normal,1.0);\n' +
     '  }\n' +
     '  else if (normal_Visual == 0) {\n' +
-    '    color = vec4(u_Color,1.0);' +
+    'if (u_Text == 1){ ' +
+    '   color = texture2D(u_Sampler,v_TexCoord);}\n' +
+    '   else{ color = vec4(u_Color,1.0);}\n' +
     '  }\n' +
     '  if (u_Shininess == 0.0) {\n' +
     '    gl_FragColor = color;\n' +
@@ -98,6 +99,7 @@ var currentLightAngle = 0.0;
 let lightMatrix = new Matrix4();  // Light rotation matrix
 let lightPos = new Vector3([0, 20, 0]);
 let lastTexID;
+let u_Text;
 
 
 let bigArr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3], //1
@@ -173,6 +175,7 @@ function main2() {
     u_MvMatrix = gl.getUniformLocation(gl.program, 'u_MvMatrix');
     u_Sampler = gl.getUniformLocation(gl.program, 'u_Sampler');
     normal_Visualization = gl.getUniformLocation(gl.program, 'normal_Visual');
+    u_Text = gl.getUniformLocation(gl.program, 'u_Text');
 
     if (!u_ModelMatrix || !u_MvpMatrix || !u_NormalMatrix || !u_LightColor || !u_LightPosition || !u_AmbientLight
         || !u_Color || !u_Shininess || !u_MvMatrix || !normal_Visualization || !u_Sampler) {
@@ -220,22 +223,22 @@ function draw(n) {
             switch (bigArr[i][j]) {
                 case 3:
                     drawCube(gl, 0, n, {
-                        "type": 0,
-                        "texID": 1,
+                        "type": 1,
+                        "texID": 2,
                         "shininess": 230,
                         "rgb": {"red": .8, "green": .8, "blue": .8}
                     }, [i - 16, 2, j - 16], [1, 1, 1]);
                 case 2:
                     drawCube(gl, 0, n, {
-                        "type": 0,
-                        "texID": 1,
+                        "type": 1,
+                        "texID": 2,
                         "shininess": 230,
                         "rgb": {"red": .8, "green": .8, "blue": .8}
                     }, [i - 16, 1, j - 16], [1, 1, 1]);
                 case 1:
                     drawCube(gl, 0, n, {
                         "type": 1,
-                        "texID": 1,
+                        "texID": 2,
                         "shininess": 230,
                         "rgb": {"red": .8, "green": .8, "blue": .8}
                     }, [i - 16, 0, j - 16], [1, 1, 1]);
@@ -258,7 +261,7 @@ function drawSphere(gl, currentAngle, n, color, pos, scale) {
 function drawObject(gl, currentAngle, n, color, pos, scale) {
     mvMatrix.setLookAt(eyeObj.x, eyeObj.y, eyeObj.z, eyeObj.lookX, eyeObj.lookY, eyeObj.lookZ, 0, 1, 0);
     gl.uniformMatrix4fv(u_MvMatrix, false, mvMatrix.elements);
-
+    gl.uniform1i(u_Text, color.type);
     gl.uniform1f(u_Shininess, color.shininess);
     if (!normals) {
         if (color.type === 0) {
