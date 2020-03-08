@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="591380bd-a40e-4d1c-8ef7-d654b46d16d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/KeyboardControls.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/init.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/bark.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/brick.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/leaf.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sky-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/sky.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/stone.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/wall.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/textures.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drive.html" beforeDir="false" afterPath="$PROJECT_DIR$/drive.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KeyboardControls.js" beforeDir="false" afterPath="$PROJECT_DIR$/KeyboardControls.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main2.js" beforeDir="false" afterPath="$PROJECT_DIR$/main2.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

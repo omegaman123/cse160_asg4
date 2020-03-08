@@ -32,7 +32,7 @@ var FSHADER_SOURCE =
     'uniform float u_Shininess;\n' +
     'uniform int normal_Visual;\n' +
     'uniform sampler2D u_Sampler;\n' +
-    'uniform int u_Text;\n'+
+    'uniform int u_Text;\n' +
     'varying vec3 v_Normal;\n' +
     'varying vec3 v_Position;\n' +
     'varying vec3 v_EyeVec;\n' +
@@ -90,7 +90,7 @@ let gl;
 let textNum = 0;
 let canvas;
 
-let eyeObj = {};
+
 const G_ANGLE = .2;
 const G_STEP = .1;
 var currentAngle = 0.0;  // Current rotation angle
@@ -171,7 +171,7 @@ function main2() {
     u_Color = gl.getUniformLocation(gl.program, 'u_Color');
     u_Shininess = gl.getUniformLocation(gl.program, 'u_Shininess');
     u_MvMatrix = gl.getUniformLocation(gl.program, 'u_MvMatrix');
-    u_Sampler = gl.getUniformLocation(gl.program,'u_Sampler');
+    u_Sampler = gl.getUniformLocation(gl.program, 'u_Sampler');
     normal_Visualization = gl.getUniformLocation(gl.program, 'normal_Visual');
 
     if (!u_ModelMatrix || !u_MvpMatrix || !u_NormalMatrix || !u_LightColor || !u_LightPosition || !u_AmbientLight
@@ -180,7 +180,6 @@ function main2() {
         return;
     }
 
-    eyeObj = {"x": 9, "y": 2, "z": 12, "lookX": 0, "lookY": 0, "lookZ": 0};
 
     vpMatrix = new Matrix4();   // View projection matrix
     vpMatrix.setPerspective(90, 1, 1, 100);
@@ -199,7 +198,6 @@ function main2() {
 
     // var currentAngle = 0.0;  // Current rotation angle
     // var currentLightAngle = 0.0;
-
 
 
     modelMatrix = new Matrix4();  // Model matrix
@@ -221,11 +219,26 @@ function draw(n) {
         for (let j = 0; j < bigArr[i].length; j++) {
             switch (bigArr[i][j]) {
                 case 3:
-                    drawCube(gl,0,n,{"type":0,"texID":1,"shininess":230,"rgb":{"red":.8,"green":.8,"blue":.8}},[i-16,2,j-16],[1,1,1]);
+                    drawCube(gl, 0, n, {
+                        "type": 0,
+                        "texID": 1,
+                        "shininess": 230,
+                        "rgb": {"red": .8, "green": .8, "blue": .8}
+                    }, [i - 16, 2, j - 16], [1, 1, 1]);
                 case 2:
-                    drawCube(gl,0,n,{"type":0,"texID":1,"shininess":230,"rgb":{"red":.8,"green":.8,"blue":.8}},[i-16,1,j-16],[1,1,1]);
+                    drawCube(gl, 0, n, {
+                        "type": 0,
+                        "texID": 1,
+                        "shininess": 230,
+                        "rgb": {"red": .8, "green": .8, "blue": .8}
+                    }, [i - 16, 1, j - 16], [1, 1, 1]);
                 case 1:
-                    drawCube(gl,0,n,{"type":1,"texID":1,"shininess":230,"rgb":{"red":.8,"green":.8,"blue":.8}},[i-16,0,j-16],[1,1,1]);
+                    drawCube(gl, 0, n, {
+                        "type": 1,
+                        "texID": 1,
+                        "shininess": 230,
+                        "rgb": {"red": .8, "green": .8, "blue": .8}
+                    }, [i - 16, 0, j - 16], [1, 1, 1]);
                     break;
             }
         }

@@ -1,3 +1,6 @@
+let eyeObj = {};
+eyeObj = {"x": 9, "y": 2, "z": 12, "lookX": 0, "lookY": 0, "lookZ": 0};
+
 function keydown(ev) {
     switch (ev.which) {
         case 87: // W

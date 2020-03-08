@@ -51,7 +51,7 @@ function initVertexBuffers(gl) {
     // Write the vertex property to buffers (coordinates, colors and normals)
     if (!initArrayBuffer(gl, 'a_Position', vertices, 3, gl.FLOAT)) return -1;
     if (!initArrayBuffer(gl, 'a_Normal', normals, 3, gl.FLOAT)) return -1;
-    if (!initArrayBuffer(gl, 'a_TexCoord',texCoords,2,gl.FLOAT))
+    if (!initArrayBuffer(gl, 'a_TexCoord', texCoords, 2, gl.FLOAT))
         return -1;
 
     // Unbind the buffer object
@@ -88,7 +88,6 @@ function initSphereVertexBuffers(gl) { // Create a sphere
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(g_sphereIndices), gl.STATIC_DRAW);
     gl.disableVertexAttribArray(2);
-
 
     return g_sphereIndices.length;
 }
