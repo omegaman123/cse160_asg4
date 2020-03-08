@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="591380bd-a40e-4d1c-8ef7-d654b46d16d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/fshader.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KeyboardControls.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/init.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/bark.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/brick.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/leaf.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sky-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sky.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/stone.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/wall.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/textures.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/drive.html" beforeDir="false" afterPath="$PROJECT_DIR$/drive.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main2.js" beforeDir="false" afterPath="$PROJECT_DIR$/main2.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +29,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="GLSL Shader" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -34,13 +44,16 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1Ym05vmpplK8O5ejmNmiuqav5l3" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -71,6 +84,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="682" y="421" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1583532513936">
