@@ -222,12 +222,6 @@ function draw(n) {
         for (let j = 0; j < bigArr[i].length; j++) {
             switch (bigArr[i][j]) {
                 case 3:
-                    drawCube(gl, 0, n, {
-                        "type": 1,
-                        "texID": 5,
-                        "shininess": 230,
-                        "rgb": {"red": .8, "green": .8, "blue": .8}
-                    }, [i - 16, 2, j - 16], [1, 1, 1]);
                 case 2:
                     drawCube(gl, 0, n, {
                         "type": 1,
@@ -246,6 +240,19 @@ function draw(n) {
                 case 75:
                     drawTree({"x":i-16,"y":0,"z":j-16},n,gl);
                     break;
+            }
+        }
+    }
+    for (let i = 0; i < bigArr.length; i++) {
+        for (let j = 0; j < bigArr[i].length; j++) {
+            switch (bigArr[i][j]) {
+                case 3:
+                    drawCube(gl, 0, n, {
+                        "type": 1,
+                        "texID": 5,
+                        "shininess": 230,
+                        "rgb": {"red": .8, "green": .8, "blue": .8}
+                    }, [i - 16, 2, j - 16], [1, 1, 1]);
             }
         }
     }
