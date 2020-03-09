@@ -10,7 +10,6 @@ function initTextures(n) {
         'resources/sky-2.jpg'];
     let texArr = [gl.TEXTURE0, gl.TEXTURE1, gl.TEXTURE2, gl.TEXTURE3, gl.TEXTURE4, gl.TEXTURE5, gl.TEXTURE6, gl.TEXTURE7];
 
-
     images.forEach(function (source, idx, imgArray) {
         var texture = gl.createTexture();   // Create a texture object
         if (!texture) {
