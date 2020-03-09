@@ -228,14 +228,14 @@ function draw(n) {
                         "texID": 2,
                         "shininess": 230,
                         "rgb": {"red": .8, "green": .8, "blue": .8}
-                    }, [i - 16, 1, j - 16], [1, 1, 1]);
+                    }, [i - 16, 1, j - 16], [1, 1, 1],{});
                 case 1:
                     drawCube(gl, 0, n, {
                         "type": 1,
                         "texID": 2,
                         "shininess": 230,
                         "rgb": {"red": .8, "green": .8, "blue": .8}
-                    }, [i - 16, 0, j - 16], [1, 1, 1]);
+                    }, [i - 16, 0, j - 16], [1, 1, 1],{});
                     break;
                 case 75:
                     drawTree({"x":i-16,"y":0,"z":j-16},n,gl);
@@ -252,23 +252,23 @@ function draw(n) {
                         "texID": 5,
                         "shininess": 230,
                         "rgb": {"red": .8, "green": .8, "blue": .8}
-                    }, [i - 16, 2, j - 16], [1, 1, 1]);
+                    }, [i - 16, 2, j - 16], [1, 1, 1],{});
             }
         }
     }
 }
 
-function drawCube(gl, currentAngle, n, color, pos, scale) {
-    drawObject(gl, currentAngle, n, color, pos, scale);
+function drawCube(gl, currentAngle, n, color, pos, scale,anim) {
+    drawObject(gl, currentAngle, n, color, pos, scale,anim);
     gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
 }
 
-function drawSphere(gl, currentAngle, n, color, pos, scale) {
-    drawObject(gl, currentAngle, n, color, pos, scale);
+function drawSphere(gl, currentAngle, n, color, pos, scale,anim) {
+    drawObject(gl, currentAngle, n, color, pos, scale,anim);
     gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_SHORT, 0);
 }
 
-function drawObject(gl, currentAngle, n, color, pos, scale) {
+function drawObject(gl, currentAngle, n, color, pos, scale,anim) {
     mvMatrix.setLookAt(eyeObj.x, eyeObj.y, eyeObj.z, eyeObj.lookX, eyeObj.lookY, eyeObj.lookZ, 0, 1, 0);
     gl.uniformMatrix4fv(u_MvMatrix, false, mvMatrix.elements);
     gl.uniform1i(u_Text, color.type);
@@ -287,6 +287,9 @@ function drawObject(gl, currentAngle, n, color, pos, scale) {
     // Calculate the model matrix
     modelMatrix.setRotate(currentAngle, 0, 1, 0); // Rotate
     modelMatrix.translate(pos[0], pos[1], pos[2]); // Move it to where we want to have it
+    if (anim.x !== undefined || anim.y !== undefined || anim.z !== undefined){
+        modelMatrix.rotate(anim.angle,anim.x,anim.y,anim.z);
+    }
     if (scale[0] != 1 || scale[1] != 1 || scale[2] != 1) {
         modelMatrix.scale(scale[0], scale[1], scale[2]); // Scale
     }
@@ -323,6 +326,25 @@ function animate(angle) {
 
 var LIGHT_ANGLE_STEP = 10.2;
 var g_lastLight = Date.now();
+
+let g_ANGLE_STEP = 45;
+let animalAngle = 0;
+
+function animateAnimal(angle){
+    var now = Date.now();
+    var elapsed = now - g_last;
+    g_last = now;
+    // Update the current rotation angle (adjusted by the elapsed time)
+    if (angle > 25) {
+        g_ANGLE_STEP = -ANGLE_STEP;
+    } else if (angle < -25) {
+        g_ANGLE_STEP = ANGLE_STEP;
+    }
+    var newAngle = angle + (g_ANGLE_STEP * elapsed) / 1000.0;
+
+    return newAngle %= 360;
+
+}
 
 function animateLight(angle) {
     // Calculate the elapsed time

@@ -60,6 +60,7 @@ function loadTexture(gl, n, texture, u_Sampler, image, texID) {
             lastTexID = -1;
             currentAngle = animate(currentAngle);  // Update the rotation angle
             currentLightAngle = animateLight(currentLightAngle);  // Update the rotation angle
+            animalAngle = animateAnimal(animalAngle);
 
             lightMatrix.setRotate(-currentLightAngle, 0, 0, 1);
             let lp = lightMatrix.multiplyVector3(lightPos);
@@ -70,9 +71,9 @@ function loadTexture(gl, n, texture, u_Sampler, image, texID) {
                 console.log('Failed to set the vertex information');
                 return;
             }
-            drawCube(gl, currentAngle, n, {"type":0,"shininess":230,"rgb":{"red":1,"green":0,"blue":1}}, [0, 0, 0], [1, 1, 1]);
-            drawCube(gl, currentAngle + 90, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [0, 1, 0], [1, 1, 1]);
-            drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":.2,"green":.5,"blue":0}}, [-16, -1,-16 ], [32, 1, 32]);
+            // drawCube(gl, currentAngle, n, {"type":0,"shininess":230,"rgb":{"red":1,"green":0,"blue":1}}, [0, 0, 0], [1, 1, 1]);
+            // drawCube(gl, currentAngle + 90, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [0, 1, 0], [1, 1, 1]);
+            drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":.2,"green":.5,"blue":0}}, [-16, -1,-16 ], [32, 1, 32],{});
             // drawCube(gl, 0, n, {"type":1,"texID":1,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [-16, -1, -16], [32, 10, 32]);
 
             // drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":1,"green":0,"blue":0}}, [0, 0, 0], [10, 0.05, 0.05]);
@@ -80,6 +81,8 @@ function loadTexture(gl, n, texture, u_Sampler, image, texID) {
             // drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [0, 0, 0], [0.05, 0.05, 10]);
 
             draw(n);
+            console.log(animalAngle);
+            drawAnimal({"x":1,"y":0,"z":1},n,currentAngle+45,currentAngle);
 
             var j = initSphereVertexBuffers(gl);
             if (j < 0) {
@@ -87,10 +90,10 @@ function loadTexture(gl, n, texture, u_Sampler, image, texID) {
                 return;
             }
 
-            drawSphere(gl, 0.0, j, {"type":0,"shininess":1,"rgb":{"red":.6,"green":.6,"blue":1.0}}, [0, 0, 0], [32, 10, 32]);
+            drawSphere(gl, 0.0, j, {"type":0,"shininess":1,"rgb":{"red":.6,"green":.6,"blue":1.0}}, [0, 0, 0], [32, 10, 32],{});
 
-            drawSphere(gl, currentAngle + 90, j, {"type":0,"shininess":230,"rgb":{"red":.7,"green":.5,"blue":0}}, [0, 1, 0], [1, 1, 1]);
-            drawSphere(gl, currentAngle, j, {"type":0,"shininess":230,"rgb":{"red":0,"green":.5,"blue":.7}}, [2, 1, 0], [1, 1, 1]);
+            // drawSphere(gl, currentAngle + 90, j, {"type":0,"shininess":230,"rgb":{"red":.7,"green":.5,"blue":0}}, [0, 1, 0], [1, 1, 1]);
+            // drawSphere(gl, currentAngle, j, {"type":0,"shininess":230,"rgb":{"red":0,"green":.5,"blue":.7}}, [2, 1, 0], [1, 1, 1]);
 
             requestAnimationFrame(tick, canvas); // Request that the browser ?calls tick
         };
