@@ -42,7 +42,7 @@ var FSHADER_SOURCE =
     '  vec3 normal = normalize(v_Normal);\n' +
     '  vec4 color;\n' +
     '  if (normal_Visual == 1) {\n' +
-    '    color = vec4(v_Normal,1.0);\n' +
+    '    color = abs(vec4(v_Normal,1.0));\n' +
     '  }\n' +
     '  else if (normal_Visual == 0) {\n' +
     'if (u_Text == 1){ ' +
@@ -258,8 +258,8 @@ function draw(n) {
     }
 }
 
-function drawCube(gl, currentAngle, n, color, pos, scale,anim) {
-    drawObject(gl, currentAngle, n, color, pos, scale,anim);
+function drawCube(gl, currentAngle, n, color, pos, scale, anim) {
+    drawObject(gl, currentAngle, n, color, pos, scale, anim);
     gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
 }
 
@@ -327,23 +327,25 @@ function animate(angle) {
 var LIGHT_ANGLE_STEP = 10.2;
 var g_lastLight = Date.now();
 
-let g_ANGLE_STEP = 45;
+let LEG_ANGLE_STEP = 45;
+let g_ANGLE_STEP = LEG_ANGLE_STEP;
 let animalAngle = 0;
 
-function animateAnimal(angle){
+var g_lastAnimal = Date.now();
+function animateAnimal(angle) {
     var now = Date.now();
-    var elapsed = now - g_last;
-    g_last = now;
-    // Update the current rotation angle (adjusted by the elapsed time)
+    var elapsed = now - g_lastAnimal;
+    g_lastAnimal = now;
     if (angle > 25) {
-        g_ANGLE_STEP = -ANGLE_STEP;
+        g_ANGLE_STEP = -LEG_ANGLE_STEP;
     } else if (angle < -25) {
-        g_ANGLE_STEP = ANGLE_STEP;
+        g_ANGLE_STEP = LEG_ANGLE_STEP;
     }
+    // Update the current rotation angle (adjusted by the elapsed time)
     var newAngle = angle + (g_ANGLE_STEP * elapsed) / 1000.0;
+    newAngle%= 360;
 
-    return newAngle %= 360;
-
+    return newAngle;
 }
 
 function animateLight(angle) {

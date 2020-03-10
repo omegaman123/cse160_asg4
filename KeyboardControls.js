@@ -26,8 +26,8 @@ function keydown(ev) {
             rotateLeft();
             break;
     }
-    console.log("x: ", eyeObj.x, ", y: ", eyeObj.y, ", z: ", eyeObj.z);
-    console.log("lookX: ", eyeObj.lookX, ", lookY: ", eyeObj.lookY, ", lookZ: ", eyeObj.lookZ);
+    // console.log("x: ", eyeObj.x, ", y: ", eyeObj.y, ", z: ", eyeObj.z);
+    // console.log("lookX: ", eyeObj.lookX, ", lookY: ", eyeObj.lookY, ", lookZ: ", eyeObj.lookZ);
 
 }
 

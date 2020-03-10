@@ -73,16 +73,40 @@ function loadTexture(gl, n, texture, u_Sampler, image, texID) {
             }
             // drawCube(gl, currentAngle, n, {"type":0,"shininess":230,"rgb":{"red":1,"green":0,"blue":1}}, [0, 0, 0], [1, 1, 1]);
             // drawCube(gl, currentAngle + 90, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [0, 1, 0], [1, 1, 1]);
-            drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":.2,"green":.5,"blue":0}}, [-16, -1,-16 ], [32, 1, 32],{});
-            // drawCube(gl, 0, n, {"type":1,"texID":1,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [-16, -1, -16], [32, 10, 32]);
+            drawCube(gl, 0, n, {
+                "type": 0,
+                "shininess": 230,
+                "rgb": {"red": .2, "green": .5, "blue": 0}
+            }, [-16, -1, -16], [32, 1, 32], {});
 
-            // drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":1,"green":0,"blue":0}}, [0, 0, 0], [10, 0.05, 0.05]);
-            // drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":1,"blue":0}}, [0, 0, 0], [0.05, 10, 0.05]);
-            // drawCube(gl, 0, n, {"type":0,"shininess":230,"rgb":{"red":0,"green":0,"blue":1}}, [0, 0, 0], [0.05, 0.05, 10]);
+            // drawCube(gl, 0, n, {
+            //     "type": 0,
+            //     "shininess": 230,
+            //     "rgb": {"red": 1, "green": 0, "blue": 0}
+            // }, [0, 0, 0], [10, 0.05, 0.05], {});
+            // drawCube(gl, 0, n, {
+            //     "type": 0,
+            //     "shininess": 230,
+            //     "rgb": {"red": 0, "green": 1, "blue": 0}
+            // }, [0, 0, 0], [0.05, 10, 0.05], {});
+            // drawCube(gl, 0, n, {
+            //     "type": 0,
+            //     "shininess": 230,
+            //     "rgb": {"red": 0, "green": 0, "blue": 1}
+            // }, [0, 0, 0], [0.05, 0.05, 10], {});
 
+            drawCube(gl, 0, n, {
+                "type": 0,
+                "shininess": 230,
+                "rgb": {"red": 1, "green": 0, "blue": 0}
+            }, [3, 0, 7], [1, 1, 1], {});
+            drawCube(gl, 0, n, {
+                "type": 0,
+                "shininess": 230,
+                "rgb": {"red": 1, "green": 1, "blue": 0}
+            }, [2, 0, 5], [1, 1, 1], {});
             draw(n);
-            console.log(animalAngle);
-            drawAnimal({"x":1,"y":0,"z":1},n,currentAngle+45,currentAngle);
+            drawAnimal({"x": 1, "y": 0, "z": 1}, n, currentAngle + 45, animalAngle);
 
             var j = initSphereVertexBuffers(gl);
             if (j < 0) {
@@ -90,10 +114,22 @@ function loadTexture(gl, n, texture, u_Sampler, image, texID) {
                 return;
             }
 
-            drawSphere(gl, 0.0, j, {"type":0,"shininess":1,"rgb":{"red":.6,"green":.6,"blue":1.0}}, [0, 0, 0], [32, 10, 32],{});
+            drawSphere(gl, 0.0, j, {
+                "type": 0,
+                "shininess": 1,
+                "rgb": {"red": .6, "green": .6, "blue": 1.0}
+            }, [0, 0, 0], [32, 10, 32], {});
 
-            // drawSphere(gl, currentAngle + 90, j, {"type":0,"shininess":230,"rgb":{"red":.7,"green":.5,"blue":0}}, [0, 1, 0], [1, 1, 1]);
-            // drawSphere(gl, currentAngle, j, {"type":0,"shininess":230,"rgb":{"red":0,"green":.5,"blue":.7}}, [2, 1, 0], [1, 1, 1]);
+            drawSphere(gl, 0, j, {
+                "type": 0,
+                "shininess": 230,
+                "rgb": {"red": .7, "green": .5, "blue": 0}
+            }, [3, 1, -4], [1, 1, 1], {});
+            drawSphere(gl, 0, j, {
+                "type": 0,
+                "shininess": 230,
+                "rgb": {"red": 0, "green": .5, "blue": .7}
+            }, [6, 1, -3], [1, 1, 1], {});
 
             requestAnimationFrame(tick, canvas); // Request that the browser ?calls tick
         };
